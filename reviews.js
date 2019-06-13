@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
 
         function buildReviews(review, i) {
             console.log(review.endorsement_responses[i].answers[0].rating)
-            var reviewItem = "<div class='review' id='review-" + (i + 1) + "'><div class='review-title'>" + stars(parseInt(review.endorsement_responses[i].answers[0].rating)) + "<h5 style='margin: 2px;'>" + properCase(review.endorsement_responses[i].first_name) + " on " + dateFormat(review.endorsement_responses[i].endorsement_request.sent) + "</h5></div><div><p class='review-body'>" + review.endorsement_responses[i].answers[1].answer + "</p></div></div>";
+            var reviewItem = `<div class='review' id='review-${i + 1}'><div class='review-title'>${stars(parseInt(review.endorsement_responses[i].answers[0].rating))}<h5 style='margin: 2px;'>${properCase(review.endorsement_responses[i].first_name)} on ${dateFormat(review.endorsement_responses[i].endorsement_request.sent)}</h5></div><div><p class='review-body'>${review.endorsement_responses[i].answers[1].answer}</p></div></div>'
             reviews += reviewItem
         }
 
