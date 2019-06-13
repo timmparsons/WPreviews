@@ -1,8 +1,6 @@
-jQuery.support.cors = !0;
-jQuery.ajaxSetup({
-    cache: !1
-});
-var reviewsToDisplay = 25;
+
+var reviewsToDisplay = 100;
+
 jQuery(document).ready(function() {
         var reviews = '';
         if (jQuery('#reviewRoot').length > 0) {
@@ -10,14 +8,14 @@ jQuery(document).ready(function() {
                 cache: !1,
                 crossDomain: !0,
                 type: 'GET',
-                url: 'https://peoplespublicconnections.azurewebsites.net/api/eEndorsements?code=jPJa5HqNmg9oH9FDwIUlrxmJv9fPlJmLB4n0OyWcC5DUjRdc8w2evQ==' + jQuery.now(),
+                url: 'https://peoplespublicconnections.azurewebsites.net/api/eEndorsements?code=jPJa5HqNmg9oH9FDwIUlrxmJv9fPlJmLB4n0OyWcC5DUjRdc8w2evQ==',
                 contentType: 'jsonp',
                 success: function(data) {
-                    var surveys = JSON.parse(data);
-                    for (var i = 0; i < reviewsToDisplay; i++) {
+                const surveys = JSON.parse(data)
+for (var i = 0; i < reviewsToDisplay; i++) {
                         buildReviews(surveys, i)
                     }
-                    jQuery('#reviewLoader').remove();
+jQuery('#reviewLoader').remove();
                     jQuery('#reviewRoot').html(reviews)
                 },
                 error: function(object, err) {
@@ -26,14 +24,16 @@ jQuery(document).ready(function() {
                 }
             })
         }
-
         function buildReviews(review, i) {
-            console.log(review.endorsement_responses[i].answers[0].rating)
-            var reviewItem = `<div class='review' id='review-${i + 1}'><div class='review-title'>${stars(parseInt(review.endorsement_responses[i].answers[0].rating))}<h5 style='margin: 2px;'>${properCase(review.endorsement_responses[i].first_name)} on ${dateFormat(review.endorsement_responses[i].endorsement_request.sent)}</h5></div><div><p class='review-body'>${review.endorsement_responses[i].answers[1].answer}</p></div></div>'
-            reviews += reviewItem
-        }
+                        var reviewItem = `<div class='review' id='review-${i + 1}'><div class='review-title'>${stars(parseInt(review.endorsement_responses[i].answers[0].rating))}<h5 style='margin: 2px;'>${properCase(review.endorsement_responses[i].first_name)} on ${dateFormat(review.endorsement_responses[i].endorsement_request.sent)}</h5></div><div><p class='review-body'>${review.endorsement_responses[i].answers[1].answer}</p></div></div>`
 
-        function stars(score) {
+reviews += reviewItem;
+if(review.endorsement_responses[i].reply !== null) {
+              let reply = `<div class='reply'>${review.endorsement_responses[i].reply}</div>`;
+              reviews += reply;
+            }
+}
+function stars(score) {
             var stars = '<span class="stars">';
             var blanks = 5 - score;
             for (var i = 0; i < score; i++) {
@@ -53,9 +53,9 @@ jQuery(document).ready(function() {
             var dateArr = date.slice(0, 10).split('-');
             return dateArr[1] + "/" + dateArr[2] + "/" + dateArr[0]
         }
-    }) 
+})
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
         <style>
             .loader {
@@ -73,6 +73,11 @@ jQuery(document).ready(function() {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+
+            #reviewRoot {
+             overflow: scroll;
+             height: 1200px;
+}
 
             .review {
                 margin: 0 auto;
@@ -96,4 +101,9 @@ jQuery(document).ready(function() {
                 color: #004791;
                 font-size: 1.25em;
             }
+
+           .reply {
+               color: #a29e9e;
+               font-style: italic;
+               padding-left: 10px;
         </style>
