@@ -25,17 +25,16 @@ jQuery('#reviewLoader').remove();
             })
         }
         function buildReviews(review, i) {
-                        var reviewItem = `<div class='review' id='review-${i + 1}'><div class='review-title'>${stars(parseInt(review.endorsement_responses[i].answers[0].rating))}<h5 style='margin: 2px;'>${properCase(review.endorsement_responses[i].first_name)} on ${dateFormat(review.endorsement_responses[i].endorsement_request.sent)}</h5></div><div><p class='review-body'>${review.endorsement_responses[i].answers[1].answer}</p></div></div>`
-
-reviews += reviewItem;
-if(review.endorsement_responses[i].reply !== null) {
-              let reply = `<div class='reply'>${review.endorsement_responses[i].reply}</div>`;
-              reviews += reply;
+          var reviewItem = `<div class='review' id='review-${i + 1}'><div class='review-title'>${stars(parseInt(review.endorsement_responses[i].answers[0].rating))}<h5 style='margin: 2px;'>${properCase(review.endorsement_responses[i].first_name)} on ${dateFormat(review.endorsement_responses[i].endorsement_request.sent)}</h5></div><div><p class='review-body'>${review.endorsement_responses[i].answers[1].answer}</p></div></div>`
+          reviews += reviewItem;
+          if(review.endorsement_responses[i].reply !== null) {
+                        let reply = `<div class='reply'>${review.endorsement_responses[i].reply}</div>`;
+                        reviews += reply;
             }
 }
 function stars(score) {
             var stars = '<span class="stars">';
-            var blanks = 5 - score;
+            var blanks = 5 - score;ß
             for (var i = 0; i < score; i++) {
                 stars += '<i class="fas fa-star"></i>'
             }
